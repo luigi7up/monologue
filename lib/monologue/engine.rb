@@ -8,6 +8,7 @@ require "responders"
 
 module Monologue
   class Engine < Rails::Engine
+
     isolate_namespace Monologue
     engine_name 'monologue'
 
