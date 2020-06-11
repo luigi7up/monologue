@@ -1,4 +1,4 @@
-# About
+# About - Monologuee compatible with Rails 5.2.x.x 
 
 This repo is a fork of the orginal [Monologue](https://github.com/jipiboily/monologue/) blogging engine for Rails. The original project got abandoned, but I was using it in www.pinabox.com. When we decided to upgrade rails from 5.0 beta to 5.2.X.X Monologue dependecies were blocking the upgrade:
 
