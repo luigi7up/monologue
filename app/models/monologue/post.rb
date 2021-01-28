@@ -31,13 +31,27 @@ class Monologue::Post < ActiveRecord::Base
   def full_url
     "#{Monologue::Engine.routes.url_helpers.root_path}#{self.url}"
   end
-
+  
   def published_in_future?
     self.published && self.published_at > DateTime.now
   end
-
+  
   def self.page p
     paged_results(p, Monologue::Config.posts_per_page || 10, false)
+  end
+  
+  # Parses the post and gets the first img tag
+  def first_image
+    doc = Nokogiri::HTML(self.content)
+    img = nil
+    if doc.css("img").any?
+      img = {}
+      img.store(:src, doc.css("img").attr('src').value) if doc.css("img").attr('src')
+      img.store(:alt, doc.css("img").attr('alt').value) if doc.css("img").attr('alt')
+      img.store(:title, doc.css("img").attr('title').value) if doc.css("img").attr('title')
+    end
+      
+    return img
   end
 
   def self.listing_page(p)
@@ -75,10 +89,5 @@ class Monologue::Post < ActiveRecord::Base
     errors.add(:url, I18n.t("activerecord.errors.models.monologue/post.attributes.url.start_with_slash")) if self.url.start_with?("/")
   end
   
-  # Parses the post and gets the first img tag
-  def first_image
-    doc = Nokogiri::HTML(self.content)
-    img = doc.css("img").attr('src').value if doc.css("img").attr('src')
-  end
   
 end
