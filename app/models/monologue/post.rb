@@ -74,4 +74,11 @@ class Monologue::Post < ActiveRecord::Base
   def url_do_not_start_with_slash
     errors.add(:url, I18n.t("activerecord.errors.models.monologue/post.attributes.url.start_with_slash")) if self.url.start_with?("/")
   end
+  
+  # Parses the post and gets the first img tag
+  def first_image
+    doc = Nokogiri::HTML(self.content)
+    img = doc.css("img").attr('src').value if doc.css("img").attr('src')
+  end
+  
 end
