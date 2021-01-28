@@ -9,3 +9,6 @@ Monologue gems causing problems:
 Also, the project needed switch form `before_filter` to `before_action` introduced in newer Rails versions
 
 The solution was forking the project and changing the dependency versions to something newer and changing the `before_filter` to `before_action`
+
+# Extending post.rb
+We also added the `def first_img`into the post.rb class in order to simply get the first IMG referenced in the article
